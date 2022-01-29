@@ -1,6 +1,6 @@
 Decimal Calculator based on Binary Calculator (workshop 4 made in CodersLab)
 
-Demo page on Netlify => 
+Demo page on Netlify => https://decimal-calculator-ewalezny.netlify.app/
 
 
 To run the project:
