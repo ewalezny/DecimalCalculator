@@ -25,9 +25,28 @@ class DecCalculator extends Calculator {
         const input = parentElement.firstElementChild;
         input.contentEditable = true;
         input.focus();
+    }
 
-        this.checkNumber();
-        this.updateResult();
+    checkNumber() {
+        super.checkNumber();
+
+        return [...this.firstNumberArray, ...this.secondNumberArray].every(el => {
+            return typeof el === "number" && el < 10 && el >= 0;
+        })
+    }
+
+    /**
+     * Set event click on +
+     */
+    initEvents() {
+        super.initEvents();
+
+        this.$calculatorDOMElement.querySelector(".operator-bar").addEventListener("click", () => {
+            const checkNumbers = this.checkNumber();
+            if (checkNumbers) {
+                this.updateResult();
+            }
+        });
     }
 }
 
