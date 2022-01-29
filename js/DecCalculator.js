@@ -27,9 +27,9 @@ class DecCalculator extends Calculator {
      * Method changing number
      */
     changeNumber(parentElement) {
-        const input = parentElement.firstElementChild;
-        input.contentEditable = true;
-        input.focus();
+        this.input = parentElement.firstElementChild;
+        this.input.contentEditable = true;
+        this.input.focus();
         this.showTooltip("Naciśnij, aby dodać wartości.")
     }
 
@@ -47,7 +47,7 @@ class DecCalculator extends Calculator {
     initEvents() {
         super.initEvents();
 
-        this.$calculatorDOMElement.querySelector(".operator-bar").addEventListener("click", () => {
+        this.$calculatorDOMElement.querySelector(".operator-bar").addEventListener("click", (event) => {
             this.hideTooltip();
 
             const checkNumbers = this.checkNumber();
@@ -57,6 +57,17 @@ class DecCalculator extends Calculator {
                 this.showTooltip("Wartości muszą być cyframi (0-9)")
             }
         });
+
+        this.$calculatorDOMElement.querySelectorAll(".dec-calculator span").forEach(el => {
+            el.addEventListener("blur", (event) => {
+                    const checkNumbers = this.checkNumber();
+                    if (!checkNumbers) {
+                        event.target.innerText = 0;
+                        event.target.contentEditable = false;
+                        this.resultNumberArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+                    }
+            })
+        })
     }
 
     showTooltip(text) {
