@@ -1,6 +1,11 @@
 import Calculator from "./Calculator";
 
 class DecCalculator extends Calculator {
+    constructor(selector) {
+        super(selector);
+        this.$tooltip = this.$calculatorDOMElement.querySelector(".popover");
+    }
+
     /**
      * Method add numbers in two array
      */
@@ -25,6 +30,7 @@ class DecCalculator extends Calculator {
         const input = parentElement.firstElementChild;
         input.contentEditable = true;
         input.focus();
+        this.showTooltip("Naciśnij, aby dodać wartości.")
     }
 
     checkNumber() {
@@ -42,11 +48,24 @@ class DecCalculator extends Calculator {
         super.initEvents();
 
         this.$calculatorDOMElement.querySelector(".operator-bar").addEventListener("click", () => {
+            this.hideTooltip();
+
             const checkNumbers = this.checkNumber();
             if (checkNumbers) {
                 this.updateResult();
+            } else {
+                this.showTooltip("Wartości muszą być cyframi (0-9)")
             }
         });
+    }
+
+    showTooltip(text) {
+        this.$tooltip.children[1].innerText = text;
+        this.$tooltip.classList.add("show");
+    }
+
+    hideTooltip() {
+        this.$tooltip.classList.remove("show");
     }
 }
 
