@@ -65,13 +65,14 @@ class DecCalculator extends Calculator {
                         event.target.innerText = 0;
                         event.target.contentEditable = false;
                         this.resultNumberArray = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+                        this.showTooltip("Wartości muszą być cyframi (0-9)")
                     }
             })
         })
     }
 
     showTooltip(text) {
-        this.$tooltip.children[1].innerText = text;
+        this.$tooltip.querySelector(".popover-body").innerText = text;
         this.$tooltip.classList.add("show");
     }
 
